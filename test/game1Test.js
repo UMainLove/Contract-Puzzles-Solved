@@ -5,6 +5,7 @@ describe('Game1', function () {
   async function deployContractAndSetVariables() {
     const Game = await ethers.getContractFactory('Game1');
     const game = await Game.deploy();
+    await game.deployed();
 
     return { game };
   }
@@ -13,7 +14,8 @@ describe('Game1', function () {
     // leave this as-is
     const { game } = await loadFixture(deployContractAndSetVariables);
 
-    // you must call unlock before you can win
+    // Call the unlock function before calling win
+    await game.unlock();
 
     // leave this call to game.win() as-is
     await game.win();
